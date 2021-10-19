@@ -1,0 +1,11 @@
+apispec==5.1.1
+Flask==2.0.2
+flask-apispec==0.11.0
+flask-marshmallow==0.14.0
+Flask-Migrate==3.1.0
+Flask-RESTful==0.3.9
+Flask-SQLAlchemy==2.5.1
+marshmallow==3.14.0
+marshmallow-sqlalchemy==0.26.1
+MonthDelta==0.9.1
+SQLAlchemy==1.4.25
