@@ -22,7 +22,7 @@ class CreditResource(MethodResource):
         credit = CreditModel(**kwargs) # Объект класса CreditModel на основе введенных данных
         if credit.periods > 60 or credit.rate > 8 or credit.amount < 10000 or credit.amount > 3000000:
             abort(400, error="Incorrect data") # Проверка валидности введенных данных
-        credit.amount_calc() # Подсчет суммы с учетом % ставки
+        credit.amount_calc() # Подсчет суммы с учетом % ставки и запись в соответствующую ячейку
         credit.save() # Запись в БД историю запросов по расчетам кредитов
         i = 1
         amount = credit.amount_with_rate # Записываем в переменную значение посчитанной суммы

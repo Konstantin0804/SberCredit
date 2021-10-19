@@ -1,5 +1,4 @@
 from api import db
-from monthdelta import monthdelta
 import datetime
 
 class CreditModel(db.Model):
