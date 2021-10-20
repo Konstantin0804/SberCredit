@@ -11,7 +11,6 @@ class CreditModel(db.Model):
 
     def amount_calc(self):
         self.amount_with_rate = self.amount*(1+(self.rate/12)/100) # Формула подсчета суммы с учетом % ставки
-        self.amount_with_rate = int(round(self.amount_with_rate/50)*50) # Округление до 50 рублей
         db.session.commit()
 
     def save(self):
