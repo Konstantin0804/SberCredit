@@ -1,5 +1,4 @@
 from api import db
-import datetime
 
 class CreditModel(db.Model):
     __tablename__ = 'credit_model'

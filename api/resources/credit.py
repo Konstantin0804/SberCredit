@@ -1,5 +1,4 @@
 from api import api, db
-import datetime
 from monthdelta import monthdelta
 from api.models.credit import CreditModel
 from api.schemas.credit import CreditSchema, CreditCreateSchema

@@ -4,9 +4,10 @@
 3. Устанавливаем зависимости: pip install -r requirements.txt
 4. Создаем локальную БД: 
 5. flask db init
-6. flask db upgrade
-7. Запускаем приложение python app.py
-8. Документация прописана в Swagger по адресу http://127.0.0.1:5000/swagger-ui/
+6. flask db migrate -m "comment"
+7. flask db upgrade
+8. Запускаем приложение python app.py
+9. Документация прописана в Swagger по адресу http://127.0.0.1:5000/swagger-ui/
 
 # Миграции
 1. Активировать миграции: flask db init
