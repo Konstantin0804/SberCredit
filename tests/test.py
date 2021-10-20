@@ -17,7 +17,7 @@ class TestCredit(TestCase):
             # create all tables
             db.create_all()
 
-    def test_credit_creation(self): # Тестирование создания кредитной заявки и вывода результата
+    def test_deposit_creation(self): # Тестирование создания заявки на подсчет депозита и вывода результата
         credit_data = {
             "date": '2021-04-22',
             "periods": 5,
@@ -30,11 +30,11 @@ class TestCredit(TestCase):
         data = json.loads(res.data)
         print("data = ", data)
         self.assertEqual(res.status_code, 200)
-        self.assertIn('05/22/2021', data.keys())
-        self.assertIn('402700', data.values())
+        self.assertIn('22/05/2021', data.keys())
+        self.assertIn('402671.12', data.values())
         self.assertEqual(len(data), 5)
 
-    def test_credit_validation(self): # Тестирование не корректного ввода данных (слишком длинный период)
+    def test_deposit_validation(self): # Тестирование не корректного ввода данных (слишком длинный период)
         credit_data = {
             "date": '2021-04-22',
             "periods": 100,

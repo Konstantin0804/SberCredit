@@ -8,22 +8,22 @@ from flask_restful import abort
 from math import ceil
 
 @api.resource('/credit')
-@doc(tags=['Credits'])
+@doc(tags=['Deposits'])
 class CreditResource(MethodResource):
-    @doc(description='Get all credits', summary="Get credits")
+    @doc(description='Get all deposits', summary="Get deposits")
     @marshal_with(CreditSchema(many=True))
     def get(self):
         credits = CreditModel.query.all() # Просмотр истории запросов на расчеты
         return credits, 200
 
-    @doc(description="Post new credit", summary="Post credit")
+    @doc(description="Post new deposits", summary="Post deposits")
     @use_kwargs(CreditCreateSchema)
     def post(self, **kwargs):
         credit = CreditModel(**kwargs) # Объект класса CreditModel на основе введенных данных
-        if credit.periods > 60 or credit.rate > 8 or credit.amount < 10000 or credit.amount > 3000000:
+        if credit.periods > 60 or credit.periods < 1 or credit.rate > 8 or credit.rate < 1 or credit.amount < 10000 or credit.amount > 3000000:
             abort(400, error="Incorrect data") # Проверка валидности введенных данных
         credit.amount_calc() # Подсчет суммы с учетом % ставки и запись в соответствующую ячейку
-        credit.save() # Запись в БД историю запросов по расчетам кредитов
+        credit.save() # Запись в БД историю запросов по расчетам вкладов
         amount = str(ceil(credit.amount_with_rate*100)/100) # Записываем в переменную значение посчитанной суммы
         date = str(credit.date.strftime('%d/%m/%Y')) # Записываем дату депозита и переводим в строчный формат
         credits = {}
@@ -38,8 +38,8 @@ class CreditResource(MethodResource):
             i += 1
         return credits, 200
 
+    @doc(description='Delete all deposits data', summary="Delete deposits")
     @marshal_with(CreditSchema(many=True))
-    @doc(description='Delete all credit data', summary="Delete credits")
     def delete(self):
         credits = CreditModel.query.all()
         db.session.query(CreditModel).delete()

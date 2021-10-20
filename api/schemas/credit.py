@@ -11,7 +11,7 @@ class CreditSchema(ma.SQLAlchemySchema): # Схема для сериализа�
 credit_schema = CreditSchema()
 credits_schema = CreditSchema(many=True)
 
-class CreditCreateSchema(ma.SQLAlchemySchema): # Схема для де-сериализации данных для ответа
+class CreditCreateSchema(ma.SQLAlchemySchema): # Схема для де-сериализации данных
    class Meta:
        model = CreditModel
 
