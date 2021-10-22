@@ -1,4 +1,4 @@
-from api import api, db
+from api import api, db, app
 from monthdelta import monthdelta
 from api.models.credit import CreditModel
 from api.schemas.credit import CreditSchema, CreditCreateSchema
@@ -6,6 +6,7 @@ from flask_apispec.views import MethodResource
 from flask_apispec import marshal_with, use_kwargs, doc
 from flask_restful import abort
 from math import ceil
+import datetime
 
 @api.resource('/credit')
 @doc(tags=['Deposits'])
@@ -24,16 +25,16 @@ class CreditResource(MethodResource):
             abort(400, error="Incorrect data") # Проверка валидности введенных данных
         credit.amount_calc() # Подсчет суммы с учетом % ставки и запись в соответствующую ячейку
         credit.save() # Запись в БД историю запросов по расчетам вкладов
-        amount = str(ceil(credit.amount_with_rate*100)/100) # Записываем в переменную значение посчитанной суммы
-        date = str(credit.date.strftime('%d/%m/%Y')) # Записываем дату депозита и переводим в строчный формат
+        amount = float(ceil(credit.amount_with_rate*100)/100) # Записываем в переменную значение посчитанной суммы
+        date = str(credit.date.strftime('%d.%m.%Y')) # Записываем дату депозита и переводим в строчный формат
         credits = {}
         credits[date] = amount
         i = 1
         while i < credit.periods: # Далее расчет сумм по следующим месяцам и запись в словарь для последующего возрата ответа
             amount = float(amount)*(1+(credit.rate/12)/100)
-            amount = str(ceil(amount*100)/100) # Округление до 2х знаков после запятой, как в примере excel
+            amount = ceil(amount*100)/100 # Округление до 2х знаков после запятой, как в примере excel
             date = credit.date + monthdelta(+i)
-            date = str(date.strftime('%d/%m/%Y'))
+            date = str(date.strftime('%d.%m.%Y'))
             credits[date] = amount
             i += 1
         return credits, 200

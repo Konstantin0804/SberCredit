@@ -9,3 +9,6 @@ marshmallow==3.14.0
 marshmallow-sqlalchemy==0.26.1
 MonthDelta==0.9.1
 SQLAlchemy==1.4.25
+ipython
+pytest
+gunicorn

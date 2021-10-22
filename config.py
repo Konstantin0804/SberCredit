@@ -9,7 +9,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(base_dir, 'base.db')
     TEST_DATABASE_URI = 'sqlite:///' + os.path.join(base_dir, 'test.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_ECHO = True #Включаем режим логирования
+    SQLALCHEMY_ECHO = True # Turn on logging
     DEBUG = True
     PORT = 5000
     RESTFUL_JSON = {
