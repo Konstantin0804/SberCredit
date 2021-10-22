@@ -29,7 +29,7 @@ class CreditCreateSchema(ma.SQLAlchemySchema): # Схема для де-сери
    class Meta:
       model = CreditModel
 
-   date = ma.Date('%d.%m.%Y')
+   date = ma.Date('%d.%m.%Y', example="15.03.2020")
    periods = ma.auto_field()
    amount = ma.auto_field()
    rate = ma.auto_field()

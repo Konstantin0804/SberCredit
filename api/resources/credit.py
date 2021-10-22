@@ -1,4 +1,4 @@
-from api import api, db, app
+from api import api, db, app, ma
 from monthdelta import monthdelta
 from api.models.credit import CreditModel
 from api.schemas.credit import CreditSchema, CreditCreateSchema
